@@ -1,938 +1,331 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Sai Chandra | Azure Data Engineer</title>
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
-
-<style>
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:'Poppins',sans-serif;
-    background:#050816;
-    color:white;
-    overflow-x:hidden;
-}
-
-/* ===== Animated Background ===== */
-
-body::before{
-    content:'';
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:
-    linear-gradient(rgba(5,8,22,0.92), rgba(5,8,22,0.95)),
-    url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop');
-    background-size:cover;
-    background-position:center;
-    z-index:-3;
-}
-
-body::after{
-    content:'';
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:
-    radial-gradient(circle at top left,#00bfff33,transparent 25%),
-    radial-gradient(circle at bottom right,#7f00ff33,transparent 25%);
-    z-index:-2;
-    animation: glow 10s infinite alternate;
-}
-
-@keyframes glow{
-    from{
-        filter:hue-rotate(0deg);
-    }
-    to{
-        filter:hue-rotate(60deg);
-    }
-}
-
-/* ===== Floating Particles ===== */
-
-.particles{
-    position:fixed;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    z-index:-1;
-}
-
-.particles span{
-    position:absolute;
-    display:block;
-    width:4px;
-    height:4px;
-    background:#00bfff;
-    border-radius:50%;
-    animation: animate 15s linear infinite;
-    opacity:0.5;
-}
-
-@keyframes animate{
-    0%{
-        transform:translateY(100vh) scale(0);
-    }
-    100%{
-        transform:translateY(-10vh) scale(1);
-    }
-}
-
-/* ===== Navbar ===== */
-
-header{
-    position:fixed;
-    width:100%;
-    top:0;
-    z-index:999;
-    backdrop-filter:blur(15px);
-    background:rgba(0,0,0,0.2);
-    border-bottom:1px solid rgba(255,255,255,0.1);
-}
-
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 8%;
-}
-
-.logo{
-    font-size:30px;
-    font-weight:700;
-    color:white;
-}
-
-.logo span{
-    color:#00bfff;
-}
-
-.nav-links{
-    display:flex;
-    gap:30px;
-    list-style:none;
-}
-
-.nav-links a{
-    text-decoration:none;
-    color:white;
-    transition:0.3s;
-    position:relative;
-}
-
-.nav-links a::after{
-    content:'';
-    position:absolute;
-    left:0;
-    bottom:-5px;
-    width:0%;
-    height:2px;
-    background:#00bfff;
-    transition:0.3s;
-}
-
-.nav-links a:hover::after{
-    width:100%;
-}
-
-/* ===== Hero Section ===== */
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:140px 8% 80px;
-    flex-wrap:wrap;
-    gap:50px;
-}
-
-.hero-left{
-    flex:1;
-    min-width:300px;
-}
-
-.hero-left h3{
-    color:#00bfff;
-    font-size:28px;
-    margin-bottom:10px;
-}
-
-.hero-left h1{
-    font-size:72px;
-    line-height:1.1;
-    margin-bottom:20px;
-    background:linear-gradient(to right,#00bfff,#ffffff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.hero-left h2{
-    font-size:34px;
-    color:#c7c7c7;
-    margin-bottom:20px;
-}
-
-.hero-left p{
-    line-height:1.9;
-    color:#d7d7d7;
-    max-width:700px;
-}
-
-.hero-buttons{
-    margin-top:35px;
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.btn{
-    padding:15px 35px;
-    border-radius:40px;
-    text-decoration:none;
-    font-weight:600;
-    transition:0.4s;
-    position:relative;
-    overflow:hidden;
-}
-
-.primary-btn{
-    background:linear-gradient(45deg,#00bfff,#7f00ff);
-    color:white;
-    box-shadow:0 0 20px #00bfff55;
-}
-
-.secondary-btn{
-    border:2px solid #00bfff;
-    color:#00bfff;
-}
-
-.btn:hover{
-    transform:translateY(-5px) scale(1.03);
-    box-shadow:0 0 30px #00bfff88;
-}
-
-.social-icons{
-    margin-top:35px;
-}
-
-.social-icons a{
-    width:55px;
-    height:55px;
-    display:inline-flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,0.1);
-    margin-right:15px;
-    font-size:22px;
-    color:white;
-    text-decoration:none;
-    transition:0.4s;
-    backdrop-filter:blur(10px);
-}
-
-.social-icons a:hover{
-    background:#00bfff;
-    transform:translateY(-8px);
-}
-
-/* ===== Profile Image ===== */
-
-.hero-right{
-    flex:1;
-    display:flex;
-    justify-content:center;
-    min-width:300px;
-}
-
-.image-box{
-    position:relative;
-    width:420px;
-    height:420px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.image-box::before{
-    content:'';
-    position:absolute;
-    inset:-15px;
-    border-radius:50%;
-    background:conic-gradient(
-    #00bfff,
-    #7f00ff,
-    #00bfff
-    );
-    animation: rotate 6s linear infinite;
-    z-index:-1;
-}
-
-.image-box::after{
-    content:'';
-    position:absolute;
-    inset:12px;
-    background:#050816;
-    border-radius:50%;
-    z-index:-1;
-}
-
-@keyframes rotate{
-    100%{
-        transform:rotate(360deg);
-    }
-}
-
-.image-box img{
-    width:92%;
-    height:92%;
-    object-fit:cover;
-    border-radius:50%;
-}
-
-/* ===== Sections ===== */
-
-section{
-    padding:100px 8%;
-}
-
-.section-title{
-    text-align:center;
-    font-size:50px;
-    margin-bottom:70px;
-    color:#00bfff;
-}
-
-/* ===== Glass Cards ===== */
-
-.glass-card{
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(15px);
-    border-radius:25px;
-    padding:35px;
-    transition:0.5s;
-}
-
-.glass-card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 0 30px rgba(0,191,255,0.35);
-}
-
-/* ===== About ===== */
-
-.about-container{
-    max-width:1100px;
-    margin:auto;
-}
-
-/* ===== Skills ===== */
-
-.skills-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:30px;
-}
-
-.skill-card{
-    text-align:center;
-}
-
-.skill-card i{
-    font-size:50px;
-    color:#00bfff;
-    margin-bottom:20px;
-}
-
-.skill-card h3{
-    font-size:22px;
-}
-
-/* ===== Projects ===== */
-
-.project-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:35px;
-}
-
-.project-card h3{
-    margin-bottom:20px;
-    color:#00bfff;
-}
-
-/* ===== Experience ===== */
-
-.timeline{
-    position:relative;
-    max-width:1000px;
-    margin:auto;
-}
-
-.timeline::before{
-    content:'';
-    position:absolute;
-    left:50%;
-    width:4px;
-    background:#00bfff;
-    top:0;
-    bottom:0;
-}
-
-.timeline-item{
-    position:relative;
-    width:50%;
-    padding:20px 40px;
-}
-
-.timeline-item:nth-child(odd){
-    left:0;
-}
-
-.timeline-item:nth-child(even){
-    left:50%;
-}
-
-.timeline-dot{
-    position:absolute;
-    top:35px;
-    right:-10px;
-    width:20px;
-    height:20px;
-    background:#00bfff;
-    border-radius:50%;
-    box-shadow:0 0 15px #00bfff;
-}
-
-.timeline-item:nth-child(even) .timeline-dot{
-    left:-10px;
-}
-
-.timeline-content h3{
-    color:#00bfff;
-    margin-bottom:10px;
-}
-
-.timeline-content span{
-    display:block;
-    margin-bottom:10px;
-    color:#ccc;
-}
-
-/* ===== Achievements ===== */
-
-.achievement-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-}
-
-.achievement-card{
-    text-align:center;
-}
-
-.achievement-card h2{
-    font-size:60px;
-    color:#00bfff;
-}
-
-/* ===== Contact ===== */
-
-.contact-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-}
-
-.contact-card{
-    text-align:center;
-}
-
-.contact-card i{
-    font-size:40px;
-    color:#00bfff;
-    margin-bottom:20px;
-}
-
-/* ===== Footer ===== */
-
-footer{
-    padding:30px;
-    text-align:center;
-    border-top:1px solid rgba(255,255,255,0.08);
-    background:rgba(0,0,0,0.3);
-}
-
-/* ===== Scroll Animation ===== */
-
-.hidden{
-    opacity:0;
-    transform:translateY(50px);
-    transition:1s;
-}
-
-.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* ===== Responsive ===== */
-
-@media(max-width:1000px){
-
-    .hero{
-        flex-direction:column-reverse;
-        text-align:center;
-    }
-
-    .hero-left h1{
-        font-size:52px;
-    }
-
-    .image-box{
-        width:320px;
-        height:320px;
-    }
-
-    .timeline::before{
-        left:20px;
-    }
-
-    .timeline-item{
-        width:100%;
-        padding-left:70px;
-        padding-right:20px;
-    }
-
-    .timeline-item:nth-child(even){
-        left:0;
-    }
-
-    .timeline-dot{
-        left:10px !important;
-    }
-
-    .nav-links{
-        display:none;
-    }
-}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sai Chandra — Azure Data Engineer building reliable, production-grade data pipelines.">
+  <meta name="theme-color" content="#07111f">
+  <title>Sai Chandra | Azure Data Engineer</title>
+  <link rel="preload" href="./assets/profile-open.png" as="image">
+  <link rel="preload" href="./assets/profile-closed.png" as="image">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
 </head>
-
-<body>
-
-<!-- Floating Particles -->
-<div class="particles">
-    <span style="left:10%; animation-duration:10s;"></span>
-    <span style="left:20%; animation-duration:18s;"></span>
-    <span style="left:35%; animation-duration:15s;"></span>
-    <span style="left:50%; animation-duration:12s;"></span>
-    <span style="left:65%; animation-duration:20s;"></span>
-    <span style="left:80%; animation-duration:17s;"></span>
-    <span style="left:90%; animation-duration:13s;"></span>
-</div>
-
-<!-- Navbar -->
-<header>
-
-<nav class="navbar">
-
-<h2 class="logo">
-Shakti<span>Dev</span>
-</h2>
-
-<ul class="nav-links">
-<li><a href="#home">Home</a></li>
-<li><a href="#about">About</a></li>
-<li><a href="#skills">Skills</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#experience">Experience</a></li>
-<li><a href="#contact">Contact</a></li>
-</ul>
-
-</nav>
-
-</header>
-
-<!-- Hero -->
-<section class="hero" id="home">
-
-<div class="hero-left hidden">
-
-<h3>HELLO I'M</h3>
-
-<h1>Sai Chandra</h1>
-
-<h2>Azure Data Engineer</h2>
-
-<p>
-Azure Data Engineer with 3+ years of experience designing scalable ETL pipelines,
-building cloud data platforms, optimizing Spark workloads, and implementing
-modern Medallion Architecture using Azure ecosystem technologies.
-</p>
-
-<div class="hero-buttons">
-
-<a href="#contact" class="btn primary-btn">
-Hire Me
-</a>
-
-<a href="Sai_Chandra_Resume.pdf" class="btn secondary-btn" download>
-Download Resume
-</a>
-
-</div>
-
-<div class="social-icons">
-
-<a href="https://github.com/SaiChandra-9" target="_blank">
-<i class="fab fa-github"></i>
-</a>
-
-<a href="https://www.linkedin.com/in/sai-chandra-585689232/" target="_blank">
-<i class="fab fa-linkedin"></i>
-</a>
-
-<a href="mailto:tvssc2442@gmail.com">
-<i class="fas fa-envelope"></i>
-</a>
-
-</div>
-
-</div>
-
-<div class="hero-right hidden">
-
-<div class="image-box">
-
-<!-- 
-IMPORTANT:
-Put your image in github repo and rename it:
-profile.png
--->
-
-<img src="profile.png" alt="profile">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- About -->
-<section id="about" class="hidden">
-
-<h2 class="section-title">
-About Me
-</h2>
-
-<div class="about-container">
-
-<div class="glass-card">
-
-<p style="line-height:2; font-size:18px; color:#ddd;">
-
-I specialize in Azure cloud-based data engineering solutions using
-Azure Data Factory, Databricks, PySpark, SQL, ADLS Gen2, Synapse,
-and Delta Lake.
-
-<br><br>
-
-Experienced in:
-ETL/ELT Pipelines,
-Spark Optimization,
-CI/CD using Azure DevOps,
-Data Migration,
-Incremental Loading,
-and Medallion Architecture.
-
-<br><br>
-
-I enjoy solving large-scale data problems and building futuristic,
-high-performance analytics platforms.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- Skills -->
-<section id="skills" class="hidden">
-
-<h2 class="section-title">
-Technical Skills
-</h2>
-
-<div class="skills-grid">
-
-<div class="glass-card skill-card">
-<i class="fas fa-database"></i>
-<h3>Azure Data Factory</h3>
-</div>
-
-<div class="glass-card skill-card">
-<i class="fas fa-cloud"></i>
-<h3>Azure Databricks</h3>
-</div>
-
-<div class="glass-card skill-card">
-<i class="fab fa-python"></i>
-<h3>Python & PySpark</h3>
-</div>
-
-<div class="glass-card skill-card">
-<i class="fas fa-fire"></i>
-<h3>Apache Spark</h3>
-</div>
-
-<div class="glass-card skill-card">
-<i class="fas fa-layer-group"></i>
-<h3>Medallion Architecture</h3>
-</div>
-
-<div class="glass-card skill-card">
-<i class="fas fa-server"></i>
-<h3>SQL Server</h3>
-</div>
-
-<div class="glass-card skill-card">
-<i class="fas fa-code-branch"></i>
-<h3>Azure DevOps</h3>
-</div>
-
-<div class="glass-card skill-card">
-<i class="fas fa-project-diagram"></i>
-<h3>ETL / ELT</h3>
-</div>
-
-</div>
-
-</section>
-
-<!-- Projects -->
-<section id="projects" class="hidden">
-
-<h2 class="section-title">
-Projects
-</h2>
-
-<div class="project-grid">
-
-<div class="glass-card project-card">
-
-<h3>
-Azure Data Migration Framework
-</h3>
-
-<p>
-Built scalable ADF pipelines to migrate data from SQL Server
-to ADLS Gen2 using watermark incremental loading,
-Parquet optimization, dynamic parameterization,
-and automated scheduling.
-</p>
-
-</div>
-
-<div class="glass-card project-card">
-
-<h3>
-Medallion Architecture Platform
-</h3>
-
-<p>
-Implemented Bronze-Silver-Gold architecture using Databricks,
-Delta Lake, and PySpark to improve analytics performance,
-data quality, and incremental processing.
-</p>
-
-</div>
-
-<div class="glass-card project-card">
-
-<h3>
-DO-178B Traceability Automation Tool
-</h3>
-
-<p>
-Developed Python GUI automation system for aerospace
-requirement traceability, validation,
-and automated compliance report generation.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- Experience -->
-<section id="experience" class="hidden">
-
-<h2 class="section-title">
-Experience
-</h2>
-
-<div class="timeline">
-
-<div class="timeline-item">
-
-<div class="timeline-dot"></div>
-
-<div class="glass-card timeline-content">
-
-<h3>
-Azure Data Engineer
-</h3>
-
-<span>
-ALTEN INDIA | ADE (DRDO)
-<br>
-Sept 2022 - Present
-</span>
-
-<p>
-Built scalable ETL pipelines processing 20+ GB/day
-using Azure Data Factory, Databricks,
-PySpark, SQL, ADLS Gen2, and Spark optimization techniques.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- Achievements -->
-<section class="hidden">
-
-<h2 class="section-title">
-Achievements
-</h2>
-
-<div class="achievement-grid">
-
-<div class="glass-card achievement-card">
-<h2>35%</h2>
-<p>ETL Runtime Reduction</p>
-</div>
-
-<div class="glass-card achievement-card">
-<h2>50+</h2>
-<p>Dynamic Pipelines</p>
-</div>
-
-<div class="glass-card achievement-card">
-<h2>20+GB</h2>
-<p>Daily Data Processing</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- Contact -->
-<section id="contact" class="hidden">
-
-<h2 class="section-title">
-Contact
-</h2>
-
-<div class="contact-grid">
-
-<div class="glass-card contact-card">
-
-<i class="fas fa-envelope"></i>
-
-<h3>Email</h3>
-
-<p>
-tvssc2442@gmail.com
-</p>
-
-</div>
-
-<div class="glass-card contact-card">
-
-<i class="fas fa-phone"></i>
-
-<h3>Phone</h3>
-
-<p>
-+91 8106265679
-</p>
-
-</div>
-
-<div class="glass-card contact-card">
-
-<i class="fas fa-location-dot"></i>
-
-<h3>Location</h3>
-
-<p>
-Chennai, Tamil Nadu
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<footer>
-
-<p>
-© 2026 Sai Chandra | Azure Data Engineer
-</p>
-
-</footer>
-
-<script>
-
-/* ===== Scroll Animation ===== */
-
-const hiddenElements = document.querySelectorAll('.hidden');
-
-const observer = new IntersectionObserver((entries)=>{
-
-entries.forEach((entry)=>{
-
-if(entry.isIntersecting){
-entry.target.classList.add('show');
-}
-
-});
-
-});
-
-hiddenElements.forEach((el)=>observer.observe(el));
-
-</script>
-
+<body data-awake="false">
+  <canvas id="data-canvas" aria-hidden="true"></canvas>
+  <div class="ambient-grid" aria-hidden="true"></div>
+  <div class="skip-intro" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav shell" aria-label="Primary navigation">
+      <a class="brand" href="#home" aria-label="Sai Chandra, home">
+        <span class="brand-mark" aria-hidden="true">SS</span>
+        <span>
+          <strong>Sai Chandra</strong>
+          <small>Azure Data Engineer</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span>
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#pipeline">Pipeline</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+      </div>
+
+      <a class="nav-contact" href="#contact">Let’s connect <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell" id="home">
+      <div class="hero-copy">
+        <div class="status-pill intro-item">
+          <span class="status-dot" aria-hidden="true"></span>
+          Available for data engineering opportunities
+        </div>
+
+        <div class="sleep-message" aria-live="polite">
+          <span>One small interaction.</span>
+          <strong>Tap the portrait to wake the pipeline.</strong>
+        </div>
+
+        <div class="awake-message">
+          <p class="overline intro-item">Hello, data world.</p>
+          <h1 class="intro-item">Hi, I am<br><span>Sai Chandra.</span></h1>
+          <p class="hero-lede intro-item">
+            Azure Data Engineer building dependable ETL systems, lakehouse platforms,
+            and analytics-ready data products from source to insight.
+          </p>
+          <div class="hero-actions intro-item">
+            <a class="button button-primary" href="#pipeline">Explore my pipeline <span aria-hidden="true">↓</span></a>
+            <a class="button button-ghost" href="mailto:tvssc2442@gmail.com">Start a conversation</a>
+          </div>
+          <dl class="hero-stats intro-item" aria-label="Professional highlights">
+            <div><dt>3+</dt><dd>Years’ experience</dd></div>
+            <div><dt>Azure</dt><dd>Cloud ecosystem</dd></div>
+            <div><dt>20+ GB</dt><dd>Daily data processing</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="portrait-column">
+        <div class="portrait-orbit" aria-hidden="true">
+          <span class="orbit orbit-one"></span>
+          <span class="orbit orbit-two"></span>
+          <span class="orbit orbit-three"></span>
+          <span class="orbit-chip chip-one">ADF</span>
+          <span class="orbit-chip chip-two">PySpark</span>
+          <span class="orbit-chip chip-three">ADLS</span>
+        </div>
+
+        <button class="portrait-button" id="portrait-button" type="button" aria-describedby="portrait-hint">
+          <span class="portrait-glow" aria-hidden="true"></span>
+          <span class="portrait-frame">
+            <img
+              id="portrait"
+              src="./assets/profile-closed.png"
+              data-closed-src="./assets/profile-closed.png"
+              data-open-src="./assets/profile-open.png"
+              alt="Portrait of Sai Chandra"
+              width="1254"
+              height="1254">
+          </span>
+          <span class="touch-target" aria-hidden="true">
+            <span>Tap</span>
+          </span>
+        </button>
+
+        <p class="portrait-hint" id="portrait-hint">
+          <span class="finger" aria-hidden="true">◎</span>
+          <span class="hint-sleeping">Touch to open my eyes</span>
+          <span class="hint-awake">Pipeline awake · tap to blink</span>
+        </p>
+      </div>
+
+      <div class="hero-scroll" aria-hidden="true"><span></span>Scroll to follow the data</div>
+    </section>
+
+    <section class="pipeline-section section shell" id="pipeline">
+      <div class="section-heading reveal">
+        <div>
+          <p class="overline">End-to-end architecture</p>
+          <h2>One continuous journey.<br><span>Source to insight.</span></h2>
+        </div>
+        <p>
+          A production-minded Azure flow that combines batch and streaming ingestion,
+          lakehouse transformation, quality checks, and business-ready serving.
+        </p>
+      </div>
+
+      <div class="pipeline-console reveal">
+        <div class="console-bar">
+          <div class="console-status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <strong>LIVE PIPELINE</strong>
+            <span>portfolio-simulation / main</span>
+          </div>
+          <div class="console-clock">
+            <span id="pipeline-event">Listening for source events</span>
+            <span class="pulse-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </div>
+        </div>
+
+        <div class="pipeline-viewport">
+          <div class="pipeline-track" aria-label="Animated end-to-end data pipeline">
+            <article class="pipeline-node source">
+              <span class="node-index">01</span>
+              <span class="node-icon database-icon" aria-hidden="true"></span>
+              <div><small>Sources</small><strong>SFTP</strong><em>Batch records</em></div>
+            </article>
+
+            <article class="pipeline-node orchestrate">
+              <span class="node-index">03</span>
+              <span class="node-icon factory-icon" aria-hidden="true">↗</span>
+              <div><small>Orchestration</small><strong>Azure Data Factory</strong><em>Triggers + control</em></div>
+            </article>
+            <span class="connector" aria-hidden="true"><i></i><i></i></span>
+
+            <article class="pipeline-node lake">
+              <span class="node-index">04</span>
+              <span class="node-icon lake-icon" aria-hidden="true">≋</span>
+              <div><small>Landing zone</small><strong>ADLS Gen2</strong><em>Raw + Parquet</em></div>
+            </article>
+            <span class="connector" aria-hidden="true"><i></i><i></i></span>
+
+            <article class="pipeline-node compute">
+              <span class="node-index">05</span>
+              <span class="node-icon spark-icon" aria-hidden="true">✦</span>
+              <div><small>Transform</small><strong>Databricks</strong><em>PySpark jobs</em></div>
+            </article>
+            <span class="connector" aria-hidden="true"><i></i><i></i></span>
+
+            <article class="pipeline-node quality">
+              <span class="node-index">06</span>
+              <span class="node-icon delta-icon" aria-hidden="true">Δ</span>
+              <div><small>Lakehouse</small><strong>Delta Lake</strong><em>Bronze → Gold</em></div>
+            </article>
+            <span class="connector" aria-hidden="true"><i></i><i></i></span>
+
+            <article class="pipeline-node serve">
+              <span class="node-index">07</span>
+              <span class="node-icon chart-icon" aria-hidden="true"><b></b><b></b><b></b></span>
+              <div><small>Serve</small><strong>Analytics</strong><em>Trusted insight</em></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="console-footer">
+          <span><i class="ok-dot"></i> Orchestration healthy</span>
+          <span><i class="ok-dot"></i> Quality gates passed</span>
+          <span><i class="ok-dot"></i> Gold tables refreshed</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section expertise-section" id="expertise">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <p class="overline">Engineering toolkit</p>
+            <h2>Built for the messy middle<br><span>of real data.</span></h2>
+          </div>
+          <p>
+            From ingestion patterns to Spark tuning, I focus on systems that remain
+            observable, reusable, and calm under production load.
+          </p>
+        </div>
+
+        <div class="expertise-grid">
+          <article class="expertise-card reveal">
+            <span class="card-number">01</span>
+            <div class="card-symbol azure-symbol" aria-hidden="true">A</div>
+            <h3>Azure orchestration</h3>
+            <p>Metadata-driven ADF pipelines, reusable linked services, triggers, watermarking, and failure recovery.</p>
+            <ul><li>Azure Data Factory</li><li>ADLS Gen2</li><li>Azure DevOps</li></ul>
+          </article>
+
+          <article class="expertise-card reveal">
+            <span class="card-number">02</span>
+            <div class="card-symbol spark-symbol" aria-hidden="true">✦</div>
+            <h3>Lakehouse engineering</h3>
+            <p>Scalable PySpark transformations with clean layer boundaries, Delta reliability, and practical optimization.</p>
+            <ul><li>Databricks</li><li>PySpark</li><li>Delta Lake</li></ul>
+          </article>
+
+          <article class="expertise-card reveal">
+            <span class="card-number">03</span>
+            <div class="card-symbol flow-symbol" aria-hidden="true">⇢</div>
+            <h3>Data movement</h3>
+            <p>Batch and event-driven ingestion shaped around schema evolution, idempotency, and trusted delivery.</p>
+            <ul><li>SFTP</li><li>ETL / ELT</li></ul>
+          </article>
+
+          <article class="expertise-card reveal">
+            <span class="card-number">04</span>
+            <div class="card-symbol quality-symbol" aria-hidden="true">✓</div>
+            <h3>Production quality</h3>
+            <p>Validation, monitoring, incremental processing, performance tuning, and CI/CD across environments.</p>
+            <ul><li>Data quality</li><li>Observability</li><li>Performance</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="projects">
+      <div class="section-heading reveal">
+        <div>
+          <p class="overline">Selected work</p>
+          <h2>Platforms that move<br><span>the work forward.</span></h2>
+        </div>
+        <p>Representative engineering work across cloud migration, lakehouse design, and automation.</p>
+      </div>
+
+      <div class="projects-list">
+        <article class="project-card reveal">
+          <div class="project-meta"><span>01</span><small>Cloud migration</small></div>
+          <div class="project-main">
+            <h3>Azure Data Migration Framework</h3>
+            <p>
+              Scalable ADF pipelines moving SQL Server data to ADLS Gen2 with watermark-based
+              incremental loads, parameterized components, Parquet output, and automated schedules.
+            </p>
+          </div>
+          <div class="project-tags"><span>ADF</span><span>ADLS Gen2</span><span>SQL</span><span>Parquet</span></div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-meta"><span>02</span><small>Lakehouse</small></div>
+          <div class="project-main">
+            <h3>Medallion Data Platform</h3>
+            <p>
+              Bronze, Silver, and Gold architecture using Databricks, Delta Lake, and PySpark
+              to improve data quality, incremental processing, and analytics performance.
+            </p>
+          </div>
+          <div class="project-tags"><span>Databricks</span><span>Delta Lake</span><span>PySpark</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div class="shell about-grid">
+        <div class="about-visual reveal" aria-hidden="true">
+          <div class="layer-stack">
+            <span class="layer layer-gold"><i>03</i><strong>GOLD</strong><small>Business-ready</small></span>
+            <span class="layer layer-silver"><i>02</i><strong>SILVER</strong><small>Validated</small></span>
+            <span class="layer layer-bronze"><i>01</i><strong>BRONZE</strong><small>Ingested</small></span>
+          </div>
+        </div>
+
+        <div class="about-copy reveal">
+          <p class="overline">About me</p>
+          <h2>I turn raw movement<br><span>into reliable meaning.</span></h2>
+          <p>
+            I’m an Azure Data Engineer with 3+ years of experience designing
+            end-to-end data workflows. My work spans orchestration, cloud storage,
+            Spark transformation, SQL, lakehouse architecture, and deployment discipline.
+          </p>
+          <p>
+            I care about the details behind a successful pipeline: restartability,
+            clear ownership, predictable cost, useful monitoring, and data people can trust.
+          </p>
+          <div class="experience-line">
+            <span>2023 — Now</span>
+            <div><strong>Azure Data Engineer</strong><small>Tata Consultancy Services · ADE (M&S Retail)</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="shell contact-wrap reveal">
+        <p class="overline">Let’s build something dependable</p>
+        <h2>Have a pipeline in mind?<br><span>Let’s make it flow.</span></h2>
+        <a class="contact-email" href="mailto:tvssc2442@gmail.com">
+          tvssc2442@gmail.com <span aria-hidden="true">↗</span>
+        </a>
+        <div class="contact-links">
+          <a href="https://www.linkedin.com/in/sai-chandra-585689232/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+          <a href="https://github.com/Shakti077" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href="tel:+918106265679">+91 8106265679</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <p>© <span id="year">2026</span> Sai Chandra</p>
+    <p>Designed around data in motion.</p>
+  </footer>
+
+  <noscript>
+    <style>.sleep-message{display:none!important}.awake-message{opacity:1!important;visibility:visible!important}.awake-message .intro-item{opacity:1!important;transform:none!important}</style>
+  </noscript>
 </body>
 </html>
